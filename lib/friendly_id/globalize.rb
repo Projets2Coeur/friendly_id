@@ -96,7 +96,7 @@ current locale:
         return super if id.unfriendly_id?
         found = where(@klass.friendly_id_config.query_field => id).first
         found = includes(:translations).
-                where(translation_class.arel_table[:locale].in([I18n.locale, I18n.default_locale])).
+                where(translation_class.arel_table[:locale].in(Refinery::I18n.frontend_locales)).
                 where(translation_class.arel_table[@klass.friendly_id_config.query_field].eq(id)).first if found.nil?
 
         if found
